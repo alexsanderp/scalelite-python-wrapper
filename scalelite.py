@@ -67,10 +67,10 @@ class Scalelite(object):
         """
         rake servers:add[url,secret,load_multiplier]
         Add a new BigBlueButton server (it will be added disabled)
-        :param url:
-        :param secret:'
-        :param load_multiplier:
-        :return:
+        :param url: Complete URL to the BigBlueButton API endpoint of the server.
+        :param secret: Security secret to access the BigBlueButton API endpoint of the server.
+        :param load_multiplier: Used to give individual servers a higher or lower priority over other servers
+        :return: server_id: ID value used when updating or removing the server
         """
         params_list = [url, secret]
         if load_multiplier:
@@ -90,8 +90,7 @@ class Scalelite(object):
         """
         rake servers:disable[id]
         Mark a BigBlueButton server as unavailable to stop scheduling new meetings
-        :param server_id:
-        :return:
+        :param server_id: ID value used when updating or removing the server
         """
         scalelite_command = f"{self.bin_path} servers:disable[{server_id}]"
         response = run_scalelite_command_in_shell(scalelite_command)
@@ -102,8 +101,7 @@ class Scalelite(object):
         """
         rake servers:enable[id]
         Mark a BigBlueButton server as available for scheduling new meetings
-        :param server_id:
-        :return:
+        :param server_id: ID value used when updating or removing the server
         """
         scalelite_command = f"{self.bin_path} servers:enable[{server_id}]"
         response = run_scalelite_command_in_shell(scalelite_command)
@@ -114,9 +112,8 @@ class Scalelite(object):
         """
         rake servers:loadMultiplier[id,loadMultiplier]
         Set the load-multiplier of a BigBlueButton server
-        :param server_id:
-        :param load_multiplier:
-        :return:
+        :param server_id: ID value used when updating or removing the server
+        :param load_multiplier: Used to give individual servers a higher or lower priority over other servers.
         """
         params_list = [server_id, load_multiplier]
         params_string = ','.join(str(param) for param in params_list)
@@ -130,8 +127,7 @@ class Scalelite(object):
         """
         rake servers:panic[id]
         Mark a BigBlueButton server as unavailable, and clear all meetings from it
-        :param server_id:
-        :return:
+        :param server_id: ID value used when updating or removing the server
         """
         scalelite_command = f"{self.bin_path} servers:panic[{server_id}]"
         response = run_scalelite_command_in_shell(scalelite_command)
@@ -142,8 +138,7 @@ class Scalelite(object):
         """
         rake servers:remove[id]
         Remove a BigBlueButton server
-        :param server_id:
-        :return:
+        :param server_id: ID value used when updating or removing the server
         """
         scalelite_command = f"{self.bin_path} servers:remove[{server_id}]"
         response = run_scalelite_command_in_shell(scalelite_command)
