@@ -36,33 +36,6 @@ class Scalelite(object):
         run_scalelite_command_in_shell(bin_path)
         self.bin_path = bin_path
 
-    def about(self):
-        """
-        rake about
-        List versions of all Rails frameworks and the environment
-        :return:
-        """
-        scalelite_command = f"{self.bin_path} about"
-        return run_scalelite_command_in_shell(scalelite_command)
-
-    def status(self):
-        """
-        rake status
-        List all BigBlueButton servers and all meetings currently running
-        :return:
-        """
-        scalelite_command = f"{self.bin_path} status"
-        return run_scalelite_command_in_shell(scalelite_command)
-
-    def list_servers(self):
-        """
-        rake servers
-        List configured BigBlueButton servers
-        :return:
-        """
-        scalelite_command = f"{self.bin_path} servers"
-        return run_scalelite_command_in_shell(scalelite_command)
-
     def add_server(self, url, secret, load_multiplier=None):
         """
         rake servers:add[url,secret,load_multiplier]
