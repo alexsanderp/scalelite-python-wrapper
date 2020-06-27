@@ -36,6 +36,60 @@ class Scalelite(object):
         run_scalelite_command_in_shell(bin_path)
         self.bin_path = bin_path
 
+    def status(self):
+        """
+        rake status
+        List all BigBlueButton servers and all meetings currently running
+        :return: servers: List of servers dict
+        """
+        scalelite_command = f"{self.bin_path} status"
+        response = run_scalelite_command_in_shell(scalelite_command)
+        servers = []
+
+        response_list = response.split("\n")
+        for row in response_list:
+            if "HOSTNAME" not in row:
+                list_chunk = row.split()
+                if len(list_chunk) == 6:
+                    list_chunk.insert(0, "")
+                server = {
+                    'hostname': list_chunk[0],
+                    'state': list_chunk[1],
+                    'status': list_chunk[2],
+                    'meetings': int(list_chunk[3]),
+                    'users': int(list_chunk[4]),
+                    'largest_meetings': int(list_chunk[5]),
+                    'videos': int(list_chunk[6])
+                }
+                servers.append(server)
+        return servers
+
+    def list_servers(self):
+        """
+        rake servers
+        List configured BigBlueButton servers
+        :return: servers: List of servers dict
+        """
+        scalelite_command = f"{self.bin_path} servers"
+        response = run_scalelite_command_in_shell(scalelite_command)
+        servers = []
+
+        if response != "No servers are configured":
+            response_list = response.split("\n")
+            list_chunks = [response_list[i:i + 7] for i in range(0, len(response_list), 7)]
+            for list_chunk in list_chunks:
+                server = {
+                    'id': list_chunk[0].replace("id: ", ""),
+                    'url': list_chunk[1].replace("url: ", "").replace("\t", ""),
+                    'secret': list_chunk[2].replace("secret: ", "").replace("\t", ""),
+                    'state': list_chunk[3].replace("\t", ""),
+                    'load': list_chunk[4].replace("load: ", "").replace("\t", ""),
+                    'load_multiplier': list_chunk[5].replace("load_multiplier: ", "").replace("\t", ""),
+                    'status': list_chunk[6].replace("\t", "")
+                }
+                servers.append(server)
+        return servers
+
     def add_server(self, url, secret, load_multiplier=None):
         """
         rake servers:add[url,secret,load_multiplier]
