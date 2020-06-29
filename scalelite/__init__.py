@@ -50,6 +50,13 @@ class Scalelite(object):
         for row in response_list:
             if "HOSTNAME" not in row:
                 list_chunk = row.split()
+                if len(list_chunk) == 1:
+                    if "ING" in list_chunk:
+                        continue
+                    hostname_part = list_chunk[0]
+                    last_server_index = len(servers) - 1
+                    servers[last_server_index]['hostname'] += hostname_part
+                    continue
                 if len(list_chunk) == 6:
                     list_chunk.insert(0, "")
                 server = {
