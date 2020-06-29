@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="scalelite",
-    version="0.1.1",
+    version="0.1.2",
     author='Alexsander Pereira',
     author_email='alexsander.pereira@icloud.com',
     description=u'A Python wrapper around the Scalelite',
