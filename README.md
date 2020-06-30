@@ -1,3 +1,3 @@
 # Scalelite Python Wrapper
 
-A Python wrapper around the [Scalelite](https://github.com/blindsidenetworks/scalelite)
+A Python Wrapper around the [Scalelite](https://github.com/blindsidenetworks/scalelite)
