@@ -47,11 +47,12 @@ class Scalelite(object):
         servers = []
 
         response_list = response.split("\n")
-        for row in response_list:
+        for index, row in enumerate(response_list, start=0):
             if "HOSTNAME" not in row:
                 list_chunk = row.split()
+                print(list_chunk)
                 if len(list_chunk) == 1:
-                    if "ING" in list_chunk:
+                    if index == 1:
                         continue
                     hostname_part = list_chunk[0]
                     last_server_index = len(servers) - 1
