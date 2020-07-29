@@ -50,26 +50,26 @@ class Scalelite(object):
         for index, row in enumerate(response_list, start=0):
             if "HOSTNAME" not in row:
                 list_chunk = row.split()
-                print(list_chunk)
-                if len(list_chunk) == 1:
-                    if index == 1:
+                if list_chunk:
+                    if len(list_chunk) == 1:
+                        if index == 1:
+                            continue
+                        hostname_part = list_chunk[0]
+                        last_server_index = len(servers) - 1
+                        servers[last_server_index]['hostname'] += hostname_part
                         continue
-                    hostname_part = list_chunk[0]
-                    last_server_index = len(servers) - 1
-                    servers[last_server_index]['hostname'] += hostname_part
-                    continue
-                if len(list_chunk) == 6:
-                    list_chunk.insert(0, "")
-                server = {
-                    'hostname': list_chunk[0],
-                    'state': list_chunk[1],
-                    'status': list_chunk[2],
-                    'meetings': int(list_chunk[3]),
-                    'users': int(list_chunk[4]),
-                    'largest_meetings': int(list_chunk[5]),
-                    'videos': int(list_chunk[6])
-                }
-                servers.append(server)
+                    if len(list_chunk) == 6:
+                        list_chunk.insert(0, "")
+                    server = {
+                        'hostname': list_chunk[0],
+                        'state': list_chunk[1],
+                        'status': list_chunk[2],
+                        'meetings': int(list_chunk[3]),
+                        'users': int(list_chunk[4]),
+                        'largest_meetings': int(list_chunk[5]),
+                        'videos': int(list_chunk[6])
+                    }
+                    servers.append(server)
         return servers
 
     def list_servers(self):
